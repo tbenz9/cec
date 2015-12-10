@@ -240,14 +240,19 @@ func GetDevicePowerStatus(address int) string {
 	// C.CEC_POWER_STATUS_UNKNOWN == error
 
 	if int(result) == C.CEC_POWER_STATUS_ON {
-		return "on"
+		// Powered On
+		return 1
 	} else if int(result) == C.CEC_POWER_STATUS_STANDBY {
-		return "standby"
+		// Powered Off
+		return 0
 	} else if int(result) == C.CEC_POWER_STATUS_IN_TRANSITION_STANDBY_TO_ON {
-		return "starting"
+		// Powering On
+		return 3
 	} else if int(result) == C.CEC_POWER_STATUS_IN_TRANSITION_ON_TO_STANDBY {
-		return "shutting down"
+		// Powering Off
+		return 4
 	} else {
-		return ""
+		// Unknown state
+		return 5
 	}
 }
