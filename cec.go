@@ -12,7 +12,7 @@ type Device struct {
 	Vendor string
 	LogicalAddress int
 	ActiveSource bool
-	PowerStatus string
+	PowerStatus int
 	PhysicalAddress string
 }
 

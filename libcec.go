@@ -234,25 +234,25 @@ func GetDevicePhysicalAddress(address int) string {
 	return fmt.Sprintf("%x.%x.%x.%x", (uint(result) >> 12) & 0xf, (uint(result) >> 8) & 0xf, (uint(result) >> 4) & 0xf, uint(result) & 0xf)
 }
 
-func GetDevicePowerStatus(address int) string {
+func GetDevicePowerStatus(address int) int {
 	result := C.cec_get_device_power_status(C.cec_logical_address(address))
 
 	// C.CEC_POWER_STATUS_UNKNOWN == error
 
 	if int(result) == C.CEC_POWER_STATUS_ON {
 		// Powered On
-		return "on"
+		return 1
 	} else if int(result) == C.CEC_POWER_STATUS_STANDBY {
 		// Powered Off
-		return "off"
+		return 0
 	} else if int(result) == C.CEC_POWER_STATUS_IN_TRANSITION_STANDBY_TO_ON {
 		// Powering On
-		return "powering on"
+		return 2
 	} else if int(result) == C.CEC_POWER_STATUS_IN_TRANSITION_ON_TO_STANDBY {
 		// Powering Off
-		return "powering off"
+		return 3
 	} else {
 		// Unknown state
-		return "unknown"
+		return 4
 	}
 }
